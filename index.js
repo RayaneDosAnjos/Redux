@@ -2,32 +2,13 @@ const redux = require('redux')
 const createStore = redux.createStore;
 const combineReducer = redux.combineReducers
 
-const incrementAction = (value)=>{return {type:'INCREMENT',payload:value || 1}}
-const decrementAction = (value)=>{return {type:'DECREMENT',payload:value || 1}}
+const {incrementAction, decrementAction} = require('./action/counterActions')
+const {addItemAction} = require('./action/ListActions')
+const counterReducer = require('./reducers/CounterReducer')
+const listReducer = require('./reducers/ListReducer')
 
-function counterReducer(state = 5, action){
-    switch(action.type){
-        case 'INCREMENT':
-            return state + action.payload
-        case 'DECREMENT':
-            return state - action.payload
-        default:
-            return state
-    }
-}
+ 
 
-//-----------------------------------------------
-const addItemAction = (item)=>{return{type:'ADD_ITEM', payload: item}} 
-
-const listReducer = (state = ['Um item padrão'], action)=>{
-    switch (action.type) {
-        case 'ADD_ITEM':
-            return [...state, action.payload]
-    
-        default:
-            return state
-    }
-}
 
 const allReducers = combineReducer({
     counter: counterReducer,
